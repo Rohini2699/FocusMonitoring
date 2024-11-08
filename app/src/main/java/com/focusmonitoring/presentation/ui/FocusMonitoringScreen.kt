@@ -1,10 +1,12 @@
 package com.focusmonitoring.presentation.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 // Composable function that represents the UI for the focus monitoring screen.
@@ -24,6 +26,7 @@ fun FocusMonitoringScreen(viewModel: FocusMonitoringViewModel) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val context = LocalContext.current
         // Displays the current focus score.
         Text(text = "Focus Score: $focusScore", style = MaterialTheme.typography.headlineMedium)
         Spacer(modifier = Modifier.height(16.dp))
@@ -34,7 +37,9 @@ fun FocusMonitoringScreen(viewModel: FocusMonitoringViewModel) {
                 isMonitoring = !isMonitoring
                 if (isMonitoring) {
                     viewModel.startMonitoring()
+                    Toast.makeText(context,"Monitoring Started " ,Toast.LENGTH_SHORT).show()
                 } else {
+                    Toast.makeText(context,"Monitoring Stopped " ,Toast.LENGTH_SHORT).show()
                     viewModel.stopMonitoring()
                 }
             }
